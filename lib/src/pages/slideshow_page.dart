@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:layout_app/src/widgets/slideshow.dart';
 
 class SlideshowPage extends StatelessWidget {
@@ -7,14 +8,15 @@ class SlideshowPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Colors.purple,
-      body: Column(
-        children: [
-          Expanded(
-            child: MySlideshow(),
-          ),
-          Expanded(child: MySlideshow()),
-        ],
-      ),
+      body: MySlideshow(),
+      //  Column(
+      //   children: [
+      //     Expanded(
+      //       child: MySlideshow(),
+      //     ),
+      //     Expanded(child: MySlideshow()),
+      //   ],
+      // ),
     );
   }
 }
@@ -33,6 +35,7 @@ class MySlideshow extends StatelessWidget {
         SvgPicture.asset('assets/svg/slide-2.svg'),
         SvgPicture.asset('assets/svg/slide-3.svg'),
         SvgPicture.asset('assets/svg/slide-4.svg'),
+        
       ],
     );
   }
