@@ -5,10 +5,10 @@ class SliverListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: <Widget>[_MainScroll(), Positioned(
-          bottom: -10,
-          right: 0,
-          child: _BottomNewList())],
+        children: <Widget>[
+          _MainScroll(),
+          Positioned(bottom: -10, right: 0, child: _BottomNewList())
+        ],
       ),
       // body: _Title(),
     );
@@ -18,31 +18,27 @@ class SliverListPage extends StatelessWidget {
 class _BottomNewList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-  final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return ButtonTheme(
       // minWidth: size.width * 0.9,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Color(0xffED6762),
-          minimumSize: Size(size.width * 0.9, 100),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only( topLeft: Radius.circular(50.0))
-          )
-        ),
-        onPressed: (){},
-        
-        child: Text(
-          'CREATE NEW LIST',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 3,
-          ),
-          )
-      ),
+          style: ElevatedButton.styleFrom(
+              primary: Color(0xffED6762),
+              minimumSize: Size(size.width * 0.9, 100),
+              shape: const RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.only(topLeft: Radius.circular(50.0)))),
+          onPressed: () {},
+          child: Text(
+            'CREATE NEW LIST',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 3,
+            ),
+          )),
     );
   }
 }
@@ -173,6 +169,7 @@ class _Title extends StatelessWidget {
   }
 }
 
+// ignore: unused_element
 class _TaskList extends StatelessWidget {
   final items = [
     _ListItem('Orange', Color(0xffF08F66)),
