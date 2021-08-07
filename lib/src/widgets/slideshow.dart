@@ -5,13 +5,14 @@ import 'package:provider/provider.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:layout_app/src/models/slider_model.dart';
 
-class Slideshow extends StatelessWidget {
+class Slideshow extends StatefulWidget {
   final List<Widget> slides;
   final bool dotsHigh;
   final Color dotsPrimaryColor;
   final Color dotsSecondaryColor;
   final double bulletPrimary;
   final double bulletSecondary;
+
   Slideshow(
       {required this.slides,
       this.dotsHigh = false,
@@ -19,6 +20,13 @@ class Slideshow extends StatelessWidget {
       this.dotsSecondaryColor = Colors.grey,
       this.bulletPrimary = 12.0,
       this.bulletSecondary = 12.0});
+
+  @override
+  _SlideshowState createState() => _SlideshowState();
+}
+
+class _SlideshowState extends State<Slideshow> {
+  late Function onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -29,22 +37,22 @@ class Slideshow extends StatelessWidget {
           builder: (BuildContext context) {
             // Set the provider contex to colored dots
             Provider.of<_SlideshowModel>(context)._dotsPriamryColor =
-                this.dotsPrimaryColor;
+                this.widget.dotsPrimaryColor;
             Provider.of<_SlideshowModel>(context)._dotsSecondaryColor =
-                this.dotsSecondaryColor;
+                this.widget.dotsSecondaryColor;
 
             // Set the provider contex to dots size
             Provider.of<_SlideshowModel>(context)._bulletPrimary =
-                this.bulletPrimary;
+                this.widget.bulletPrimary;
             Provider.of<_SlideshowModel>(context)._bulletSecondary =
-                this.bulletSecondary;
+                this.widget.bulletSecondary;
 
             // return the slideshow
             return Column(
               children: <Widget>[
-                if (this.dotsHigh) _Dots(this.slides.length),
-                Expanded(child: _Slides(this.slides)),
-                if (!this.dotsHigh) _Dots(this.slides.length),
+                if (this.widget.dotsHigh) _Dots(this.widget.slides.length),
+                Expanded(child: _Slides(this.widget.slides)),
+                if (!this.widget.dotsHigh) _Dots(this.widget.slides.length),
               ],
             );
           },
@@ -65,26 +73,42 @@ class _Dots extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 70,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // Generate dynamic list List.generate(length, functionGenerator)
+            children: List.generate(slidesLength, (index) => _Dot(index)),
 
-        // Generate dynamic list List.generate(length, functionGenerator)
-        children: List.generate(slidesLength, (index) => _Dot(index)),
+            // Create a metod that return a List of widgets
+            // children: _printDots(),
 
-        // Create a metod that return a List of widgets
-        // children: _printDots(),
-
-        // Naive static solution print dots manualy
-        //[
-        // _Dot(0),
-        // _Dot(1),
-        // _Dot(2),
-        // _Dot(3),
-        // _Dot(4),
-        // _Dot(5),
-        // _Dot(6),
-        // _Dot(7),
-        // ],
+            // Naive static solution print dots manualy
+            //[
+            // _Dot(0),
+            // _Dot(1),
+            // _Dot(2),
+            // _Dot(3),
+            // _Dot(4),
+            // _Dot(5),
+            // _Dot(6),
+            // _Dot(7),
+            // ],
+          ),
+          Row(
+            children: [
+              // FloatingActionButton(onPressed: () {}), child: Icon(Icons.arrow_right)),
+              FloatingActionButton(
+                onPressed: () {},
+                child: Icon(Icons.arrow_left),
+              ),
+              FloatingActionButton(
+                onPressed: () {},
+                child: Icon(Icons.arrow_right),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
@@ -158,6 +182,16 @@ class __SlidesState extends State<_Slides> {
       });
     });
     super.initState();
+  }
+
+  void nextPage() {
+    pageViewController.addListener(() {
+      setState(() {
+        // onPressed() {
+        //   Provider.of<_SlideshowModel>(context, listen: false).currentPage++;
+        // }
+      });
+    });
   }
 
   @override

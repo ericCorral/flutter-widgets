@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:layout_app/src/theme/themechanger.dart';
 import 'package:layout_app/src/widgets/pinterest_menu.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +26,8 @@ class _PinterestMenuLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     // final widthScreen = MediaQuery.of(context).size.width;
     final mostrar = Provider.of<_MenuModel>(context)._mostrar;
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    // final accentColor = appTheme.currentTheme.accentColor;
     return Positioned(
       bottom: 30,
       child: PinterestMenu(
@@ -51,8 +54,8 @@ class _PinterestMenuLocation extends StatelessWidget {
               },
               icon: Icons.supervised_user_circle),
         ],
-        // backgroundColor: Colors.green,
-        // activeColor: Colors.red,
+        backgroundColor: appTheme.scaffoldBackgroundColor,
+        activeColor: appTheme.accentColor,
         // inactiveColor: Colors.blue,
       ),
     );
